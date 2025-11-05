@@ -30,7 +30,7 @@ process convert_to_upper {
 
     script:
     """
-    cat $y | tr '[a-z]' '[A-Z]' > upper_${y}.txt
+    cat $y | tr '[a-z]' '[A-Z]' > upper_${y}
     """
 }
 
