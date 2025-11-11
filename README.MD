@@ -11,3 +11,6 @@ nextflow run main.nf \
   --msraw 'data/ms/*.mzML' \
   --fasta 'data/reference/proteome.fasta' \
   -resume
+
+
+nextflow run main.nf

@@ -1,3 +1,5 @@
+params.outdir  = "results"
+
 process msfragger_search {
     input:
     path raw
@@ -6,6 +8,8 @@ process msfragger_search {
 
     output:
     path "${raw.baseName}_msfragger.txt"
+
+    publishDir "${params.outdir}", mode: 'copy'
 
     script:
     """

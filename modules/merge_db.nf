@@ -1,3 +1,5 @@
+params.outdir  = "results"
+
 process merge_databases {
     input:
     path sample_proteins
@@ -5,6 +7,8 @@ process merge_databases {
 
     output:
     path "merged_${sample_proteins.baseName}.fasta"
+
+    publishDir "${params.outdir}", mode: 'copy'
 
     script:
     """

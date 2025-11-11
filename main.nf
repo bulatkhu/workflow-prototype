@@ -16,24 +16,39 @@ params.msraw   = "data/ms/*.raw"
 params.threads = 8
 
 workflow {
-
-    Channel
-        .fromPath(params.reads)
-        .view { "reads_ch → ${it}" }
-        .set { reads_ch }
+    reads_ch = Channel.fromPath(params.reads)
+    fasta_ch = Channel.fromPath(params.fasta)
+    ms_ch    = Channel.fromPath(params.msraw)
 
     translated = transdecoder_process(reads_ch)
-    translated
-        .view { "translated → ${it}" }
-    
-
     proteins   = translate_proteins(translated)
-    merged_db  = merge_databases(proteins, Channel.fromPath(params.fasta))
-
-    ms_files   = Channel.fromPath(params.msraw)
-    ms_results = msfragger_search(ms_files, merged_db, params.threads)
-
+    merged_db  = merge_databases(proteins, fasta_ch)
+    ms_results = msfragger_search(ms_ch, merged_db, params.threads)
+    
     emit:
         merged_db
         ms_results
 }
+
+// workflow {
+
+//     Channel
+//         .fromPath(params.reads)
+//         .view { "reads_ch → ${it}" }
+//         .set { reads_ch }
+
+//     translated = transdecoder_process(reads_ch)
+//     translated
+//         .view { "translated → ${it}" }
+    
+
+//     proteins   = translate_proteins(translated)
+//     merged_db  = merge_databases(proteins, Channel.fromPath(params.fasta))
+
+//     ms_files   = Channel.fromPath(params.msraw)
+//     ms_results = msfragger_search(ms_files, merged_db, params.threads)
+
+//     emit:
+//         merged_db
+//         ms_results
+// }
