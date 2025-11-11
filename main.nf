@@ -1,42 +1,34 @@
-// Default parameter input
-params.str = "Hello world!"
+#!/usr/bin/env nextflow
 
-// split process
-process split {
-    publishDir "results/lower"
-    
-    input:
-    val x
-    
-    output:
-    path 'chunk_*'
+nextflow.enable.dsl = 2
 
-    script:
-    """
-    printf '${x}' | split -b 6 - chunk_
-    """
-}
+// Import processes from modules
+include { transdecoder_process } from './modules/transdecoder.nf'
+include { translate_proteins }   from './modules/transdecoder.nf'
+include { merge_databases }      from './modules/merge_db.nf'
+include { msfragger_search }     from './modules/msfragger.nf'
 
-// convert_to_upper process
-process convert_to_upper {
-    publishDir "results/upper"
-    tag "$y"
+// Define input parameters
+params.reads   = "data/reads/*.fastq.gz"
+params.fasta   = "data/reference/proteome.fasta"
+params.outdir  = "results"
+params.msraw   = "data/ms/*.raw"
+params.threads = 8
 
-    input:
-    path y
-
-    output:
-    path 'upper_*'
-
-    script:
-    """
-    rev $y > upper_${y}
-    """
-}
-
-// Workflow block
 workflow {
-    ch_str = channel.of(params.str)       // Create a channel using parameter input
-    ch_chunks = split(ch_str)             // Split string into chunks and create a named channel
-    convert_to_upper(ch_chunks.flatten()) // Convert lowercase letters to uppercase letters
+
+    Channel
+        .fromPath(params.reads)
+        .set { reads_ch }
+
+    translated = transdecoder_process(reads_ch)
+    proteins   = translate_proteins(translated)
+    merged_db  = merge_databases(proteins, Channel.fromPath(params.fasta))
+
+    ms_files   = Channel.fromPath(params.msraw)
+    ms_results = msfragger_search(ms_files, merged_db, params.threads)
+
+    emit:
+        merged_db
+        ms_results
 }
