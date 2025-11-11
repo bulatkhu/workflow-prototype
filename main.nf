@@ -19,9 +19,14 @@ workflow {
 
     Channel
         .fromPath(params.reads)
+        .view { "reads_ch → ${it}" }
         .set { reads_ch }
 
     translated = transdecoder_process(reads_ch)
+    translated
+        .view { "translated → ${it}" }
+    
+
     proteins   = translate_proteins(translated)
     merged_db  = merge_databases(proteins, Channel.fromPath(params.fasta))
 
