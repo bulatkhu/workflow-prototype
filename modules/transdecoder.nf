@@ -1,7 +1,4 @@
 process transdecoder_process {
-
-    tag { "${reads.baseName}" }
-
     input:
     path reads
 
@@ -17,9 +14,6 @@ process transdecoder_process {
 
 
 process translate_proteins {
-
-    tag { "${transcripts.baseName}" }
-
     input:
     path transcripts
 

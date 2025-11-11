@@ -1,7 +1,4 @@
 process msfragger_search {
-
-    tag { "${raw.baseName}" }
-
     input:
     path raw
     path merged_db

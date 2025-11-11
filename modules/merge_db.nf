@@ -1,7 +1,4 @@
 process merge_databases {
-
-    tag { "${sample_proteins.baseName}" }
-
     input:
     path sample_proteins
     path ref_fasta
