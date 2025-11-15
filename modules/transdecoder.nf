@@ -1,6 +1,7 @@
 params.outdir  = "results"
 
 process transdecoder_process {
+    label 'transdecoder'
     input:
     path reads
 
@@ -11,8 +12,9 @@ process transdecoder_process {
 
     script:
     """
-    echo ">transcript_${reads.baseName}" > ${reads.baseName}.transcripts.fa
-    echo "ATGGCGGCGGCGTAG" >> ${reads.baseName}.transcripts.fa
+    TransDecoder.LongOrfs -t ${reads}
+    TransDecoder.Predict -t ${reads}
+    cp ${reads.baseName}.transdecoder.pep ${reads.baseName}.proteins.faa
     """
 }
 
