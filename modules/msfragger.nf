@@ -7,13 +7,22 @@ process msfragger_search {
     val threads
 
     output:
-    path "${raw.baseName}_msfragger.txt"
+    path "${raw.baseName}.pepXML"
+    path "${raw.baseName}.tsv"
 
-    publishDir "${params.outdir}", mode: 'copy'
+    publishDir "${params.outdir}/msfragger", mode: 'copy'
 
     script:
     """
-    echo "Simulating MSFragger search on: ${raw} using DB: ${merged_db}" > ${raw.baseName}_msfragger.txt
-    echo "Threads used: ${threads}" >> ${raw.baseName}_msfragger.txt
+    # Run MSFragger
+    java -Xmx8G -jar /opt/MSFragger.jar \
+        --threads ${threads} \
+        --database ${merged_db} \
+        params/fragger_params.yaml \
+        ${raw}
+
+    # MSFragger output filenames
+    cp ${raw.baseName}.pepXML .
+    cp ${raw.baseName}.tsv .
     """
 }
