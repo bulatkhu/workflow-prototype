@@ -25,9 +25,6 @@ workflow {
     merged_db  = merge_databases(proteins, fasta_ch)
     ms_results = msfragger_search(ms_ch, merged_db, params.threads)
     
-    emit:
-        merged_db
-        ms_results
 }
 
 // workflow {
