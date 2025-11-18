@@ -17,9 +17,9 @@ params.msraw   = "data/ms/*.mzML"
 workflow {
     comet_params = file(params.comet_params, checkIfExists: true)
 
-    reads_ch = channel.fromPath(params.reads)
-    fasta_ch = channel.fromPath(params.fasta)
-    ms_ch    = channel.fromPath(params.msraw)
+    reads_ch = Channel.fromPath(params.reads)
+    fasta_ch = Channel.fromPath(params.fasta)
+    ms_ch    = Channel.fromPath(params.msraw)
 
     translated = transdecoder_process(reads_ch)
     proteins   = translate_proteins(translated)
