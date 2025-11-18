@@ -14,3 +14,5 @@ nextflow run main.nf \
 
 
 nextflow run main.nf
+
+nextflow run main.nf   -profile standard   --reads 'data/reads/*.fasta'   --msraw 'data/ms/*.mzML'   --fasta 'data/reference/proteome.fasta' -resume -c pipeline.config

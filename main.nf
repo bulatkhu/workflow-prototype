@@ -12,7 +12,7 @@ include { merge_databases }      from './modules/merge_db.nf'
 params.reads   = "data/reads/*.fastq.gz"
 params.fasta   = "data/reference/proteome.fasta"
 params.outdir  = "results"
-params.msraw   = "data/ms/*.raw"
+params.msraw   = "data/ms/*.mzML"
 
 workflow {
     comet_params = file(params.comet_params, checkIfExists: true)
