@@ -1,0 +1,6 @@
+peptide_mass_tolerance = 10
+peptide_mass_units = 2
+allowed_missed_cleavage = 2
+fragment_bin_tol = 0.02
+fragment_bin_offset = 0.0
+output_pepxmlfile = 1

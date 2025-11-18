@@ -15,6 +15,8 @@ params.outdir  = "results"
 params.msraw   = "data/ms/*.raw"
 
 workflow {
+    comet_params = file(params.comet_params, checkIfExists: true)
+
     reads_ch = Channel.fromPath(params.reads)
     fasta_ch = Channel.fromPath(params.fasta)
     ms_ch    = Channel.fromPath(params.msraw)
@@ -22,6 +24,6 @@ workflow {
     translated = transdecoder_process(reads_ch)
     proteins   = translate_proteins(translated)
     merged_db  = merge_databases(proteins, fasta_ch)
-    ms_results = comet_search(ms_ch, merged_db)
+    ms_results = comet_search(ms_ch, merged_db, comet_params)
     
 }
