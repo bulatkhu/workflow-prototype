@@ -12,14 +12,14 @@ include { merge_databases }      from './modules/merge_db.nf'
 params.reads   = "data/reads/*.fastq.gz"
 params.fasta   = "data/reference/proteome.fasta"
 params.outdir  = "results"
-params.msraw   = "data/ms/*.mzML"
+params.msraw   = "data/ms/*.raw"
 
 workflow {
     comet_params = file(params.comet_params, checkIfExists: true)
 
-    reads_ch = Channel.fromPath(params.reads)
-    fasta_ch = Channel.fromPath(params.fasta)
-    ms_ch    = Channel.fromPath(params.msraw)
+    reads_ch = channel.fromPath(params.reads)
+    fasta_ch = channel.fromPath(params.fasta)
+    ms_ch    = channel.fromPath(params.msraw)
 
     translated = transdecoder_process(reads_ch)
     proteins   = translate_proteins(translated)
