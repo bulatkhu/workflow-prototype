@@ -1,6 +1,7 @@
 params.outdir  = "results"
 
 process transdecoder_process {
+    publishDir "${params.outdir}", mode: 'copy'
     label 'transdecoder'
     
     input:
@@ -10,9 +11,6 @@ process transdecoder_process {
     output:
     path "${reads.baseName}.transcripts.fa"
     path "${reads.baseName}.transdecoder.pep"
-
-
-    publishDir "${params.outdir}", mode: 'copy'
 
     script:
     """
@@ -27,14 +25,13 @@ process transdecoder_process {
 
 
 process translate_proteins {
+    publishDir "${params.outdir}", mode: 'copy'
     input:
     path fa
     path pep
 
     output:
     path pep
-
-    publishDir "${params.outdir}", mode: 'copy'
 
     script:
     """

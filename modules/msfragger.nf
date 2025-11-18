@@ -1,6 +1,7 @@
 params.outdir  = "results"
 
 process msfragger_search {
+    publishDir "${params.outdir}/msfragger", mode: 'copy'
     input:
     path raw
     path merged_db
@@ -9,8 +10,6 @@ process msfragger_search {
     output:
     path "${raw.baseName}.pepXML"
     path "${raw.baseName}.tsv"
-
-    publishDir "${params.outdir}/msfragger", mode: 'copy'
 
     script:
     """
