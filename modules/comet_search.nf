@@ -1,5 +1,5 @@
 process comet_search {
-    label 'comet'
+    container "comet:2025.03"
 
     input:
     path raw
@@ -15,8 +15,8 @@ process comet_search {
     """
     comet \
         -P${comet_params_file} \
-        -D ${fasta} \
-        -N ${raw.baseName} \
+        -D${fasta} \
+        -N${raw.baseName} \
         ${raw}
     """
 }
