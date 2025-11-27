@@ -7,12 +7,15 @@ include { transdecoder_process } from './modules/transdecoder.nf'
 include { translate_proteins }   from './modules/transdecoder.nf'
 include { comet_search }   from './modules/comet_search.nf'
 include { merge_databases }      from './modules/merge_db.nf'
+include { qc_and_trim }      from './modules/qc_and_trim.nf'
+include { rnaseq_wrapper } from './modules/rnaseq_wrapper.nf'
 
 // Define input parameters
 params.reads   = "data/reads/*.fastq.gz"
 params.fasta   = "data/reference/proteome.fasta"
 params.outdir  = "results"
 params.msraw   = "data/ms/*.raw"
+params.samplesheet = "data/samplesheet.csv"
 
 workflow {
     comet_params = file(params.comet_params, checkIfExists: true)
@@ -20,10 +23,20 @@ workflow {
     reads_ch = channel.fromPath(params.reads)
     fasta_ch = channel.fromPath(params.fasta)
     ms_ch    = channel.fromPath(params.msraw)
+    samplesheet_ch    = channel.fromPath(params.samplesheet)
 
-    translated = transdecoder_process(reads_ch)
-    proteins   = translate_proteins(translated)
-    merged_db  = merge_databases(proteins, fasta_ch)
-    ms_results = comet_search(ms_ch, merged_db, comet_params)
+    rnaseq_out = rnaseq_wrapper(
+        samplesheet_ch,
+        // fasta: params.fasta,
+        // gtf:  params.gtf,
+        // outdir: "${params.outdir}/rnaseq"
+    )
+
+    // fastqc_out = qc_and_trim(reads_ch)
+
+    // translated = transdecoder_process(reads_ch)
+    // proteins   = translate_proteins(translated)
+    // merged_db  = merge_databases(proteins, fasta_ch)
+    // ms_results = comet_search(ms_ch, merged_db, comet_params)
     
 }
