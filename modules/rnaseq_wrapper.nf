@@ -19,6 +19,8 @@ process rnaseq_wrapper {
     --input ${input} \
     --save_align_intermeds \
     --skip_alignment \
+    --gtf https://ftp.ensembl.org/pub/release-112/gtf/amazona_collaria/Amazona_collaria.ASM394721v1.112.gtf.gz \
+    --fasta https://ftp.ensembl.org/pub/release-112/fasta/amazona_collaria/dna/Amazona_collaria.ASM394721v1.dna.nonchromosomal.fa.gz \
     --outdir ${params.outdir}/rnaseq \
     -profile docker
     """
