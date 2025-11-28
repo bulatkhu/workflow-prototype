@@ -4,6 +4,9 @@ output
 results
 .idea
 
-data
+data/ms
+data/reads
+data/backups
+data/reference
 
 tools/msfragger/content
