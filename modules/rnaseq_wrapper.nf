@@ -6,8 +6,8 @@ process rnaseq_wrapper {
     input:
         // tuple val(meta), path(reads)
         path input
-        // path fasta
-        // path gtf
+        path fasta
+        path genome
 
     output:
     path "results"
@@ -17,10 +17,12 @@ process rnaseq_wrapper {
     nextflow run \
     nf-core/rnaseq \
     --input ${input} \
+    --gtf ${genome} \
+    --fasta ${fasta} \
+    --aligner star_salmon \
+    --skip_pseudo_alignment \
+    --with_stringtie \
     --save_align_intermeds \
-    --skip_alignment \
-    --gtf https://ftp.ensembl.org/pub/release-112/gtf/amazona_collaria/Amazona_collaria.ASM394721v1.112.gtf.gz \
-    --fasta https://ftp.ensembl.org/pub/release-112/fasta/amazona_collaria/dna/Amazona_collaria.ASM394721v1.dna.nonchromosomal.fa.gz \
     --outdir ${params.outdir}/rnaseq \
     -profile docker
     """

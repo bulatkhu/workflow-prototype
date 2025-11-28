@@ -18,16 +18,24 @@ params.msraw   = "data/ms/*.raw"
 params.samplesheet = "data/samplesheet.csv"
 params.comet_params = "params/comet.params"
 
+params.fasta1 = "data/reference/Ecoli_k12.fasta.gz"
+params.genome1 = "data/reference/Ecoli_k12.gtf.gz"
+
 workflow {
     comet_params = file(params.comet_params, checkIfExists: true)
 
     reads_ch = channel.fromPath(params.reads)
     fasta_ch = channel.fromPath(params.fasta)
     ms_ch    = channel.fromPath(params.msraw)
+  
     samplesheet_ch    = channel.fromPath(params.samplesheet)
+    fasta1_ch    = channel.fromPath(params.fasta1)
+    genome1_ch    = channel.fromPath(params.genome1)
 
     rnaseq_out = rnaseq_wrapper(
         samplesheet_ch,
+        fasta1_ch,
+        genome1_ch
         // fasta: params.fasta,
         // gtf:  params.gtf,
         // outdir: "${params.outdir}/rnaseq"
