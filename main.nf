@@ -16,6 +16,7 @@ params.fasta   = "data/reference/proteome.fasta"
 params.outdir  = "results"
 params.msraw   = "data/ms/*.raw"
 params.samplesheet = "data/samplesheet.csv"
+params.comet_params = "params/comet.params"
 
 workflow {
     comet_params = file(params.comet_params, checkIfExists: true)
