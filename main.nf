@@ -10,6 +10,7 @@ include { merge_databases }      from './modules/merge_db.nf'
 include { qc_and_trim }      from './modules/qc_and_trim.nf'
 include { rnaseq_wrapper } from './modules/rnaseq_wrapper.nf'
 include { gffread_transcripts } from './modules/gffread_transcripts.nf'
+include { gffcompare } from './modules/gffcompare/main.nf'
 
 // Define input parameters
 params.reads   = "data/reads/*.fastq.gz"
@@ -22,6 +23,7 @@ params.comet_params = "params/comet.params"
 params.fasta1Unzip = "data/reference/Ecoli_k12.fasta"
 params.fasta1 = "data/reference/Ecoli_k12.fasta.gz"
 params.genome1 = "data/reference/Ecoli_k12.gtf.gz"
+params.genomeUnzip = "data/reference/Ecoli_k12.gtf"
 
 workflow {
     comet_params = file(params.comet_params, checkIfExists: true)
@@ -44,15 +46,21 @@ workflow {
     // )
 
     gtf_file = file("results/rnaseq/results/rnaseq/star_salmon/stringtie/ecoli1.transcripts.gtf")
-    ref_fa = file(params.fasta1)
+    ref_fa = file(params.genomeUnzip, checkIfExists: true)
 
-    transcripts = gffread_transcripts(gtf_file, ref_fa)
+    transcripts_ch = channel
+        .fromPath("results/rnaseq/results/rnaseq/star_salmon/stringtie/ecoli1.transcripts.gtf")
+        .map { [ [id: "human1"], it ] }
+
+    gff = gffcompare(transcripts_ch, ref_fa)
+
+    // transcripts = gffread_transcripts(gtf_file, ref_fa)
 
     // fastqc_out = qc_and_trim(reads_ch)
 
-    translated = transdecoder_process(transcripts)
-    proteins   = translate_proteins(translated)
-    merged_db  = merge_databases(proteins, fasta1_ch)
-    ms_results = comet_search(ms_ch, merged_db, comet_params)
+    // translated = transdecoder_process(transcripts)
+    // proteins   = translate_proteins(translated)
+    // merged_db  = merge_databases(proteins, fasta1_ch)
+    // ms_results = comet_search(ms_ch, merged_db, comet_params)
     
 }
