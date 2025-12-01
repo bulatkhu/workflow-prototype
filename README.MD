@@ -19,3 +19,8 @@ nextflow run main.nf   -profile standard   --reads 'data/reads/*.fasta'   --msra
 
 DAG of this workflow: 
 ![SVG Image](./media/dag.svg)
+
+Prequisits: 
+build comet search docker image: 
+"cd images"
+"docker build -t comet:2025.03 ."
