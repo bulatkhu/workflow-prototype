@@ -8,5 +8,6 @@ data/ms
 data/reads
 data/backups
 data/reference
+data/genome
 
 tools/msfragger/content

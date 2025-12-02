@@ -20,10 +20,10 @@ params.msraw   = "data/ms/*.mzML"
 params.samplesheet = "data/samplesheet.csv"
 params.comet_params = "params/comet.params"
 
-params.fasta1Unzip = "data/reference/Ecoli_k12.fasta"
-params.fasta1 = "data/reference/Ecoli_k12.fasta.gz"
-params.genome1 = "data/reference/Ecoli_k12.gtf.gz"
-params.genomeUnzip = "data/reference/Ecoli_k12.gtf"
+params.fasta1Unzip = "data/reference/Homo_sapiens.GRCh38.dna.toplevel.fa"
+params.fasta1 = "data/reference/Homo_sapiens.GRCh38.dna.toplevel.fa.gz"
+params.genome1 = "data/genome/Homo_sapiens.GRCh38.114.chr.gtf.gz"
+params.genomeUnzip = "data/genome/Homo_sapiens.GRCh38.114.chr.gtf"
 
 workflow {
     comet_params = file(params.comet_params, checkIfExists: true)
@@ -36,23 +36,20 @@ workflow {
     fasta1_ch    = channel.fromPath(params.fasta1)
     genome1_ch    = channel.fromPath(params.genome1)
 
-    // rnaseq_out = rnaseq_wrapper(
-    //     samplesheet_ch,
-    //     fasta1_ch,
-    //     genome1_ch
-    //     // fasta: params.fasta,
-    //     // gtf:  params.gtf,
-    //     // outdir: "${params.outdir}/rnaseq"
-    // )
+    rnaseq_out = rnaseq_wrapper(
+        samplesheet_ch,
+        fasta1_ch,
+        genome1_ch
+    )
 
-    gtf_file = file("results/rnaseq/results/rnaseq/star_salmon/stringtie/ecoli1.transcripts.gtf")
-    ref_fa = file(params.genomeUnzip, checkIfExists: true)
+    // gtf_file = file("results/rnaseq/results/rnaseq/star_salmon/stringtie/THP1_test.transcripts.gtf")
+    // ref_fa = file(params.genomeUnzip, checkIfExists: true)
 
-    transcripts_ch = channel
-        .fromPath("results/rnaseq/results/rnaseq/star_salmon/stringtie/ecoli1.transcripts.gtf")
-        .map { [ [id: "human1"], it ] }
+    // transcripts_ch = channel
+    //     .fromPath("results/rnaseq/results/rnaseq/star_salmon/stringtie/THP1_test.transcripts.gtf")
+    //     .map { [ [id: "human1"], it ] }
 
-    gff = gffcompare(transcripts_ch, ref_fa)
+    // gff = gffcompare(transcripts_ch, ref_fa)
 
     // transcripts = gffread_transcripts(gtf_file, ref_fa)
 

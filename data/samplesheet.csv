@@ -1,2 +1,3 @@
 sample,fastq_1,fastq_2,strandedness
-ecoli1,/home/ubuntu/workflow-prototype/data/reference/E_coli_aMG1.fastq.gz,,unstranded
+THP1_test,/home/ubuntu/workflow-prototype/data/reads/THP1_test_R1.fastq.gz,/home/ubuntu/workflow-prototype/data/reads/THP1_test_R2.fastq.gz,unstranded
+THP1_R1,/home/ubuntu/workflow-prototype/data/reads/THP1_R1.fastq.gz,/home/ubuntu/workflow-prototype/data/reads/THP1_R2.fastq.gz,unstranded

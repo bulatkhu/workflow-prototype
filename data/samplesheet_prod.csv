@@ -1,0 +1,4 @@
+sample,fastq_1,fastq_2,strandedness
+SRR13279451_1,/home/ubuntu/workflow-prototype/data/reads/SRR13279451_1.fastq.gz,/home/ubuntu/workflow-prototype/data/reads/SRR13279451_2.fastq.gz,unstranded
+SRR13279452_1,/home/ubuntu/workflow-prototype/data/reads/SRR13279452_1.fastq.gz,/home/ubuntu/workflow-prototype/data/reads/SRR13279452_2.fastq.gz,unstranded
+SRR13279453_1,/home/ubuntu/workflow-prototype/data/reads/SRR13279453_1.fastq.gz,/home/ubuntu/workflow-prototype/data/reads/SRR13279453_2.fastq.gz,unstranded
