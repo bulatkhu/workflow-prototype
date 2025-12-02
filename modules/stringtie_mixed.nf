@@ -19,14 +19,10 @@ process stringtie_mixed {
     script:
     """
     stringtie ${bam} \
-        -G ${genome} \
         --mix \
-        -f 0.01 \
-        -j 1 \
-        -c 0.5 \
-        -g 10 \
-        -M 0.1 \
-        --conservative \
+        -f 0.1 \
+        -c 2.5 \
+        -p 8 \
         -p ${task.cpus} \
         -o ${sample_name}_mixed.transcripts.gtf
 
