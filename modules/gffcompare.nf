@@ -25,6 +25,6 @@ process gffcompare {
     awk '\$0 ~ /class_code "u"/' compare.annotated.gtf > novel_intergenic.gtf
 
     # extract all non-canonical transcripts (not class_code "=")
-    awk '\$3=="transcript" && \$0 !~ /class_code "=" /' compare.annotated.gtf > novel_transcripts_all.gtf
+    awk '\$3=="transcript" && \$0 !~ /class_code "="/' compare.annotated.gtf > novel_transcripts_all.gtf
     """
 }

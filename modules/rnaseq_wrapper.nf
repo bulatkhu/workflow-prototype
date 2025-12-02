@@ -26,6 +26,7 @@ process rnaseq_wrapper {
     --outdir ${params.outdir}/rnaseq \
     -profile docker
     """
+    // --stringtie_ignore_gtf \  # KEY PARAMETER! // not sure about that!
 }
 
 //   !! Only displaying parameters that differ from the pipeline defaults !!
