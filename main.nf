@@ -43,16 +43,16 @@ workflow {
     //     fasta1_ch,
     //     genome1_ch
     // )
+    gtf_file = file("results/rnaseq/results/rnaseq/star_salmon/stringtie/THP1_R.transcripts.gtf")
+    bam = channel.fromPath("results/rnaseq/results/rnaseq/star_salmon/THP1_R.sorted.bam")
+    
+    meta = [id: "THP1_R"]
 
-    meta = [id: "THP1_test"]
-
-    // gtf_file = file("results/rnaseq/results/rnaseq/star_salmon/stringtie/THP1_test.transcripts.gtf")
     ref_fa = file(params.genomeUnzip, checkIfExists: true)
     
     genome1_unzip = file(params.genomeUnzip, checkIfExists: true)
-    bam = channel.fromPath("results/THP1_test/rnaseq/results/rnaseq/star_salmon/THP1_test.sorted.bam")
 
-    stringtie_results = stringtie_mixed("THP1_test", bam, genome1_unzip)
+    stringtie_results = stringtie_mixed("THP1_R", bam, genome1_unzip)
 
 
     transcripts_ch = channel.of(meta).combine(stringtie_results.gtf)

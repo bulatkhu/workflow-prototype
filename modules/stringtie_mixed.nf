@@ -1,7 +1,7 @@
 params.outdir  = "results"
 
 process stringtie_mixed {
-    publishDir "${params.outdir}/stringtie_mixed", mode: 'copy'
+    publishDir "${params.outdir}/novel/stringtie_mixed", mode: 'copy'
     container "quay.io/biocontainers/stringtie:3.0.3--h29c0135_0"
 
     tag "assembling transcripts with novel discovery"
