@@ -43,28 +43,26 @@ workflow {
     //     fasta1_ch,
     //     genome1_ch
     // )
-    gtf_file = file("results/rnaseq/results/rnaseq/star_salmon/stringtie/THP1_R.transcripts.gtf")
-    bam = channel.fromPath("results/rnaseq/results/rnaseq/star_salmon/THP1_R.sorted.bam")
+    gtf_file = channel.fromPath("data/transcripts/THP1_R.transcripts.gtf")
+    bam = channel.fromPath("data/transcripts/THP1_R.sorted.bam")
     
     meta = [id: "THP1_R"]
-
-    ref_fa = file(params.genomeUnzip, checkIfExists: true)
     
     genome1_unzip = file(params.genomeUnzip, checkIfExists: true)
 
     stringtie_results = stringtie_mixed("THP1_R", bam, genome1_unzip)
+    gff = gffcompare(stringtie_results.gtf, genome1_unzip)
 
+    // intergenic = gff.intergenic
+    // intergenic = channel.fromPath("results/novel/gffcompare/novel_intergenic.gtf")
 
-    transcripts_ch = channel.of(meta).combine(stringtie_results.gtf)
+    ref_fa = file(params.fasta1Unzip, checkIfExists: true)
 
-    gff = gffcompare(transcripts_ch, genome1_unzip)
-
-    // transcripts = gffread_transcripts(gtf_file, ref_fa)
-
-    // fastqc_out = qc_and_trim(reads_ch)
-
-    // translated = transdecoder_process(transcripts)
-    // proteins   = translate_proteins(translated)
+    transcripts = gffread_transcripts(gff.intergenic, ref_fa)
+    
+    translated = transdecoder_process(transcripts)
+    proteins   = translate_proteins(translated)
+    
     // merged_db  = merge_databases(proteins, fasta1_ch)
     // ms_results = comet_search(ms_ch, merged_db, comet_params)
     

@@ -14,7 +14,6 @@ process gffread_transcripts {
 
     script:
         """
-        gunzip -c ${ref_fa} > unzipped.fasta
-        gffread ${gtf_file} -g unzipped.fasta -w transcripts.fa
+        gffread ${gtf_file} -g ${ref_fa} -w transcripts.fa
         """
 }
