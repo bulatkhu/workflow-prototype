@@ -19,17 +19,11 @@ process stringtie_mixed {
     script:
     """
     stringtie ${bam} \
+        -G ${genome} \
         --mix \
         -f 0.1 \
         -c 2.5 \
-        -p 8 \
         -p ${task.cpus} \
         -o ${sample_name}_mixed.transcripts.gtf
-
-    
-    echo "StringTie parameters used:" > stringtie_params.txt
-    echo "-f 0.01 (isoform fraction)" >> stringtie_params.txt
-    echo "-c 0.5 (coverage)" >> stringtie_params.txt
-    echo "-g 10 (transcript gap)" >> stringtie_params.txt
     """
 }

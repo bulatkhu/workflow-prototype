@@ -4,7 +4,6 @@ nextflow.enable.dsl = 2
 
 // Import processes from modules
 include { transdecoder_process } from './modules/transdecoder.nf'
-include { translate_proteins }   from './modules/transdecoder.nf'
 include { comet_search }   from './modules/comet_search.nf'
 include { merge_databases }      from './modules/merge_db.nf'
 include { qc_and_trim }      from './modules/qc_and_trim.nf'
@@ -61,7 +60,6 @@ workflow {
     transcripts = gffread_transcripts(gff.intergenic, ref_fa)
     
     translated = transdecoder_process(transcripts)
-    proteins   = translate_proteins(translated)
     
     // merged_db  = merge_databases(proteins, fasta1_ch)
     // ms_results = comet_search(ms_ch, merged_db, comet_params)

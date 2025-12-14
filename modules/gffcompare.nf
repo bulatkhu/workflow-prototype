@@ -22,7 +22,7 @@ process gffcompare {
     gffcompare -r ${reference_gtf} -o compare_denovo ${transcripts}
 
     # extract intergenic-only transcripts (class_code = "u")
-    awk '\$0 ~ /class_code "u"/' compare_denovo.annotated.gtf > novel_intergenic.gtf
+    awk '\$0 ~ /class_code "(j|i|x|u)"/' compare_denovo.annotated.gtf > novel_intergenic.gtf
 
     # extract novel transcripts per chromosome
     awk '\$3=="transcript" {print \$1}' novel_intergenic.gtf | sort -V | uniq -c > novel_intergenic_by_chr.txt
