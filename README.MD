@@ -27,5 +27,5 @@ build comet search docker image:
 
 To run workflow in background:
 create a new screen:  screen -S nf_run
-enter it:             screen -r nf_run1
+enter it:             screen -r nf_run
 if you want to exit without killing the screen, first press Ctrl + A then d

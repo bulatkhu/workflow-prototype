@@ -16,7 +16,7 @@ process transdecoder_process {
 
     script:
     """
-    TransDecoder.LongOrfs -t ${reads}
-    TransDecoder.Predict -t ${reads}
+    TransDecoder.LongOrfs -t ${reads.baseName}
+    TransDecoder.Predict -t ${reads.baseName}
     """
 }
