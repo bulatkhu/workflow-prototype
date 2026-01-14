@@ -17,6 +17,7 @@ process stringtie_mixed {
     // path("*.gtf")  // alternative for file name flexibility
 
     // Recommended proteogenomics presets:
+    //   Low:           -f 0.1 -c 2.5
     //   Balanced:      -f 0.2 -c 5
     //   Very strict:   -f 0.3 -c 10
 
