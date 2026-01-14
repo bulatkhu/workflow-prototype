@@ -1,0 +1,15 @@
+# Example Samplesheet Template
+# Copy this file to samplesheet.csv and fill in your sample information
+# 
+# Column descriptions:
+# - sample: Unique identifier for each sample
+# - fastq_1: Full path or url to forward reads (R1) file
+# - fastq_2: Full path or url to reverse reads (R2) file (leave empty for single-end)
+# - strandedness: Library strandedness - one of: forward, reverse, unstranded or auto
+#
+# Remove this comment line and the header below when using
+
+sample,fastq_1,fastq_2,strandedness
+Sample1,/absolute/path/to/Sample1_R1.fastq.gz,/absolute/path/to/Sample1_R2.fastq.gz,auto
+Sample2,/absolute/path/to/Sample2_R1.fastq.gz,/absolute/path/to/Sample2_R2.fastq.gz,auto
+SingleEndSample,/absolute/path/to/SingleEnd.fastq.gz,,unstranded

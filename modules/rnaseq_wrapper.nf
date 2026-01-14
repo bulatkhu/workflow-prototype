@@ -10,7 +10,8 @@ process rnaseq_wrapper {
         path genome
 
     output:
-    path "results"
+        path "star_salmon/{*.sorted.bam,!*.markdup.sorted.bam}", emit: sorted_bam
+        path "multiqc/star_salmon/multiqc_report.html", emit: multiqc_report
 
     script:
     """
@@ -23,7 +24,7 @@ process rnaseq_wrapper {
     --skip_pseudo_alignment \
     --with_stringtie \
     --save_align_intermeds \
-    --outdir ${params.outdir}/rnaseq \
+    --outdir . \
     -profile docker
     """
     // --stringtie_ignore_gtf \  # KEY PARAMETER! // not sure about that!

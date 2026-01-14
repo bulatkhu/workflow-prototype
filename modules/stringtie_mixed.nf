@@ -16,13 +16,13 @@ process stringtie_mixed {
     // path("${meta.sample}_mixed.transcripts.gtf"), emit: gtf
     // path("*.gtf")  // alternative for file name flexibility
 
+    // -G ${genome} \
+    // --mix \
+    // -f 0.1 \
+    // -c 2.5 \
     script:
     """
     stringtie ${bam} \
-        -G ${genome} \
-        --mix \
-        -f 0.1 \
-        -c 2.5 \
         -p ${task.cpus} \
         -o ${sample_name}_mixed.transcripts.gtf
     """

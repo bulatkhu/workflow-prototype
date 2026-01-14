@@ -9,14 +9,14 @@ process transdecoder_process {
 
 
     output:
-    path "${reads.baseName}.transdecoder.pep", emit: pep
-    path "${reads.baseName}.transdecoder.cds", emit: cds
-    path "${reads.baseName}.transdecoder.gff3", emit: gff3
-    path "${reads.baseName}.transdecoder.bed", emit: bed
+    path "*.transdecoder.pep", emit: pep
+    path "*.transdecoder.cds", emit: cds
+    path "*.transdecoder.gff3", emit: gff3
+    path "*.transdecoder.bed", emit: bed
 
     script:
     """
-    TransDecoder.LongOrfs -t ${reads.baseName}
-    TransDecoder.Predict -t ${reads.baseName}
+    TransDecoder.LongOrfs -t ${reads}
+    TransDecoder.Predict -t ${reads}
     """
 }
