@@ -11,6 +11,7 @@ process merge_databases {
 
     script:
     """
-    cat ${ref_fasta} ${sample_proteins} > merged_${sample_proteins.baseName}.fasta
+    gunzip -c ${ref_fasta} > ${ref_fasta.baseName}.fasta
+    cat ${ref_fasta.baseName}.fasta ${sample_proteins} > merged_${sample_proteins.baseName}.fasta
     """
 }

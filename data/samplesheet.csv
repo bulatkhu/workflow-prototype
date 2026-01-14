@@ -1,0 +1,2 @@
+sample,fastq_1,fastq_2,strandedness
+THP1_R,/home/ubuntu/workflow-prototype/data/reads/THP1_R1.fastq.gz,/home/ubuntu/workflow-prototype/data/reads/THP1_R2.fastq.gz,reverse

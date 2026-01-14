@@ -1,7 +1,7 @@
 params.outdir  = "results"
 
 process transdecoder_process {
-    publishDir "${params.outdir}", mode: 'copy'
+    publishDir "${params.outdir}/transdecoder", mode: 'copy'
     label 'transdecoder'
     
     input:
@@ -9,33 +9,14 @@ process transdecoder_process {
 
 
     output:
-    path "${reads.baseName}.transcripts.fa"
-    path "${reads.baseName}.transdecoder.pep"
+    path "*.transdecoder.pep", emit: pep
+    path "*.transdecoder.cds", emit: cds
+    path "*.transdecoder.gff3", emit: gff3
+    path "*.transdecoder.bed", emit: bed
 
     script:
     """
     TransDecoder.LongOrfs -t ${reads}
     TransDecoder.Predict -t ${reads}
-
-    cp ${reads}.transdecoder.pep ${reads.baseName}.transdecoder.pep
-
-    cp ${reads} ${reads.baseName}.transcripts.fa
-    """
-}
-
-
-process translate_proteins {
-    publishDir "${params.outdir}", mode: 'copy'
-    input:
-    path fa
-    path pep
-
-    output:
-    path pep
-
-    script:
-    """
-    # No need for anything here — TransDecoder already outputs proteins
-    cat ${pep}
     """
 }

@@ -4,6 +4,12 @@ output
 results
 .idea
 
-data
+data/ms
+data/reads
+data/backups
+data/reference
+data/genome
+data/transcripts
+data/ignore
 
 tools/msfragger/content
