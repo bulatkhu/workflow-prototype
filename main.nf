@@ -31,15 +31,24 @@ workflow {
     genome1_ch    = channel.fromPath(params.genome1)
     
 
-    rnaseq_out = rnaseq_wrapper(
-        samplesheet_ch,
-        fasta1_ch,
-        genome1_ch
-    )
+    // Conditional execution of rnaseq_wrapper
+    if (params.bam) {
+        log.info "Skipping rnaseq_wrapper(alignment + QC) as BAM file is provided."
+        bam_ch = channel.fromPath(params.bam)
+    } else {
+        log.info "Running rnaseq_wrapper(alignment + QC) as no BAM file is provided."
+        rnaseq_out = rnaseq_wrapper(
+            samplesheet_ch,
+            fasta1_ch,
+            genome1_ch
+        )
+        bam_ch = rnaseq_out.sorted_bam
+    }
+    
     
     genome1_unzip = file(params.genomeUnzip, checkIfExists: true)
 
-    stringtie_results = stringtie_mixed("THP1_R", rnaseq_out.sorted_bam, genome1_unzip)
+    stringtie_results = stringtie_mixed("THP1_R", bam_ch, genome1_unzip)
     gff = gffcompare(stringtie_results.gtf, genome1_unzip)
 
     ref_fa = file(params.fasta1Unzip, checkIfExists: true)

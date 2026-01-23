@@ -8,7 +8,7 @@ This workflow integrates RNA-seq analysis with novel transcript discovery to ide
 
 ### What This Pipeline Does
 
-1. **RNA-seq Alignment & Quantification**: Aligns RNA-seq reads to a reference genome and quantifies known transcripts
+1. **RNA-seq Alignment & Quantification**: Aligns RNA-seq reads to a reference genome and quantifies known transcripts (can be skipped if a BAM file is provided)
 2. **Novel Transcript Assembly**: Assembles transcripts including novel ones using StringTie
 3. **Transcript Classification**: Compares novel transcripts against reference annotations to identify intergenic transcripts
 4. **Sequence Extraction**: Extracts transcript sequences from the genome
@@ -27,6 +27,10 @@ This workflow integrates RNA-seq analysis with novel transcript discovery to ide
   - Install: Follow instructions at https://docs.docker.com/get-docker/
 
 - **nf-core/rnaseq** (automatically pulled by Nextflow)
+
+## Optional Input
+
+- **BAM File**: If a pre-aligned BAM file is available, it can be provided to skip the RNA-seq alignment and quantification step. Specify the BAM file path using the `--bam` parameter.
 
 ### Optional: Comet Search Engine
 
@@ -87,6 +91,7 @@ Edit `main.nf` or pass parameters via command line. Key parameters:
 - `--fasta1`: Path to reference genome FASTA (compressed or uncompressed)
 - `--genome1`: Path to reference GTF annotation (compressed or uncompressed)
 - `--outdir`: Output directory (default: `results`)
+- `--bam`: Path to pre-aligned BAM file (optional, skips RNA-seq alignment and quantification if provided)
 
 ### 3. Run the Pipeline
 
@@ -187,7 +192,7 @@ After a successful run, your results will be organized as follows:
 
 ```
 results/
-├── rnaseq/                    # RNA-seq alignment and quantification
+├── rnaseq/                    # RNA-seq alignment and quantification, if bam file was provided, this part will be missing
 │   ├── star_salmon/
 │   │   └── *.sorted.bam
 │   └── multiqc/
