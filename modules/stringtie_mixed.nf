@@ -17,17 +17,17 @@ process stringtie_mixed {
     // path("*.gtf")  // alternative for file name flexibility
 
     // Recommended proteogenomics presets:
-    //   Low:           -f 0.1 -c 2.5
-    //   Balanced:      -f 0.2 -c 5
-    //   Very strict:   -f 0.3 -c 10
+    //   balanced:      -f 0.1 -c 2.5 // Warning! May produce too many false positives
+    //   conservative:  -f 0.3 -c 10
+    //   strict:        -f 0.5 -c 15
 
     script:
     """
     stringtie ${bam} \
         -G ${genome} \
         --mix \
-        -f 0.3 \
-        -c 10 \
+        -f 0.5 \
+        -c 15 \
         -p ${task.cpus} \
         -o ${sample_name}_mixed.transcripts.gtf
     """
