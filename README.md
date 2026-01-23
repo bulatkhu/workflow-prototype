@@ -92,6 +92,10 @@ Edit `main.nf` or pass parameters via command line. Key parameters:
 - `--genome1`: Path to reference GTF annotation (compressed or uncompressed)
 - `--outdir`: Output directory (default: `results`)
 - `--bam`: Path to pre-aligned BAM file (optional, skips RNA-seq alignment and quantification if provided)
+- `--mode`: StringTie assembly mode (default: `strict`). Valid options:
+  - `balanced`: Produces more transcripts but may include more false positives
+  - `conservative`: Balanced approach with moderate stringency
+  - `strict`: High stringency, fewer transcripts but higher confidence
 
 ### 3. Run the Pipeline
 
