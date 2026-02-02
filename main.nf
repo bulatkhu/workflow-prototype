@@ -11,6 +11,7 @@ include { rnaseq_wrapper } from './modules/rnaseq_wrapper.nf'
 include { gffread_transcripts } from './modules/gffread_transcripts.nf'
 include { gffcompare } from './modules/gffcompare.nf'
 include { stringtie_mixed } from './modules/stringtie_mixed.nf'
+include { filter_by_score } from './modules/filter_by_score.nf'
 
 // Define input parameters
 // params.reads        = "data/reads/*.fastq.gz"
@@ -56,4 +57,6 @@ workflow {
     transcripts = gffread_transcripts(gff.novel, ref_fa)
     
     translated = transdecoder_process(transcripts)
+
+    filter_by_score(translated.pep, 30, 700)
 }
