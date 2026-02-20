@@ -1,5 +1,3 @@
-params.outdir  = "results"
-
 process msfragger_search {
     publishDir "${params.outdir}/msfragger", mode: 'copy'
     input:

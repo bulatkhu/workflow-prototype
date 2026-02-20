@@ -1,5 +1,3 @@
-params.outdir  = "results"
-
 process transdecoder_process {
     publishDir "${params.outdir}/transdecoder", mode: 'copy'
     label 'transdecoder'

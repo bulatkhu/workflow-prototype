@@ -1,5 +1,3 @@
-params.outdir  = "results"
-
 process rnaseq_wrapper {
     publishDir "${params.outdir}/rnaseq", mode: 'copy'
 

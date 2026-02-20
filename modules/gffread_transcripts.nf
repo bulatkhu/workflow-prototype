@@ -1,6 +1,3 @@
-params.outdir  = "results"
-
-
 process gffread_transcripts {
     publishDir "${params.outdir}/gffread", mode: 'copy'
     container "biodepot/gffread:65eb9ae8__8fdddb8f__c4ced399"

@@ -13,19 +13,6 @@ include { gffcompare } from './modules/gffcompare.nf'
 include { stringtie_mixed } from './modules/stringtie_mixed.nf'
 include { filter_by_score } from './modules/filter_by_score.nf'
 
-// Define input parameters
-// params.reads        = "data/reads/*.fastq.gz"
-// params.fasta        = "data/reference/proteome.fasta"
-params.outdir       = "results"
-// params.msraw        = "data/ms/*.mzML"
-params.samplesheet  = "data/samplesheet.csv"
-params.comet_params = "params/comet.params"
-
-params.fasta1Unzip  = "data/reference/Homo_sapiens.GRCh38.dna.toplevel.fa"
-params.fasta1       = "data/reference/Homo_sapiens.GRCh38.dna.toplevel.fa.gz"
-params.genome1      = "data/genome/Homo_sapiens.GRCh38.114.chr.gtf.gz"
-params.genomeUnzip  = "data/genome/Homo_sapiens.GRCh38.114.chr.gtf"
-
 workflow {
     samplesheet_ch    = channel.fromPath(params.samplesheet)
     fasta1_ch    = channel.fromPath(params.fasta1)

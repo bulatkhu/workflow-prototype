@@ -1,5 +1,3 @@
-params.outdir  = "results"
-
 process qc_and_trim {
     tag "${reads.baseName}"
     publishDir "${params.outdir}/qc", mode: 'copy'

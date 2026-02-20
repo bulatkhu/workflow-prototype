@@ -1,5 +1,3 @@
-params.outdir  = "results"
-
 process merge_databases {
     publishDir "${params.outdir}", mode: 'copy'
     input:

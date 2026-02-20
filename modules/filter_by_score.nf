@@ -1,5 +1,3 @@
-params.outdir  = "results"
-
 process filter_by_score {
     publishDir "${params.outdir}", mode: 'copy'
 

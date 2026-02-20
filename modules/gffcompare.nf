@@ -1,5 +1,3 @@
-params.outdir  = "results"
-
 process gffcompare {
     publishDir "${params.outdir}/novel/gffcompare", mode: 'copy'
     container "quay.io/biocontainers/gffcompare:0.12.10--h9948957_0"

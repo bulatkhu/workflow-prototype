@@ -1,6 +1,3 @@
-params.outdir  = "results"
-params.mode = params.mode ?: 'strict' // Default to 'strict' if not specified
-
 // Recommended proteogenomics presets:
 //   balanced:      -f 0.1 -c 2.5 // Warning! May produce too many false positives
 //   conservative:  -f 0.3 -c 10
