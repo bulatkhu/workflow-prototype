@@ -15,6 +15,6 @@ process transdecoder_process {
     script:
     """
     TransDecoder.LongOrfs -t ${reads}
-    TransDecoder.Predict --single_best_only -t ${reads}
+    TransDecoder.Predict -t ${reads}
     """
 }
